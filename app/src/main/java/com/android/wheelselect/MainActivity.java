@@ -68,18 +68,25 @@ public class MainActivity extends AppCompatActivity    {
             @Override
             public void ItemClick(View view, int position) {
                 Toast.makeText(getApplicationContext(),position+"",Toast.LENGTH_SHORT).show();
-                recyclerView.smoothScrollToPosition(position);
-                //获取第一个可见条目和最后一个可见条目下标
-                int firstPosition=manager.findFirstVisibleItemPosition();
-                int lastPosition=manager.findLastVisibleItemPosition();
-                //获取left和right
-                int left=recyclerView.getChildAt(position-firstPosition).getLeft();
-                int right=recyclerView.getChildAt(lastPosition-position).getLeft();
-                recyclerView.scrollBy(((left-right)/2)+(int)mAdapter.getItemWidth()/2,0);
-                mAdapter.highlightItem(position);
+               scrollTo(position);
 
             }
         });
+    }
+
+    /**
+     * 点击item滚动到指定位置
+     * @param position
+     */
+    public void scrollTo(int position){
+        //获取第一个可见条目和最后一个可见条目下标
+        int firstPosition=manager.findFirstVisibleItemPosition();
+        int lastPosition=manager.findLastVisibleItemPosition();
+        //获取left和right
+        int left=recyclerView.getChildAt(position-firstPosition).getLeft();
+        int right=recyclerView.getChildAt(lastPosition-position).getLeft();
+        recyclerView.scrollBy(((left-right)/2)+(int)mAdapter.getItemWidth()/2,0);
+        mAdapter.highlightItem(position);
     }
 
     /**
